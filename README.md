@@ -1,16 +1,19 @@
-# React + Vite
+# AI Productivity Assistant
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI Productivity Assistant is a personal web and mobile-friendly assistant that helps turn tasks, reminders, messages, and meeting insights into a clear, editable daily, weekly, and monthly plan.
 
-Currently, two official plugins are available:
+The assistant suggests priorities and plans; the user reviews, edits, and approves important actions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## MVP Features
+- Task management
+- Reminders
+- Task prioritization
+- AI-generated daily briefing
+- Editable daily, weekly, and monthly plans
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Planned Features
+- Message summaries with user permission
+- Meeting notes and action-item extraction
+- Calendar syncing
+- Android mobile version
+- Smarter prioritization
