@@ -5,6 +5,7 @@ function TaskItem({ task }) {
       <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
         {task.title}
       </span>
+      <small> [{task.priority}]{task.due_date ? ` • due ${task.due_date}` : ""}</small>
     </li>
   );
 }
