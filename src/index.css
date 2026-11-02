@@ -1,14 +1,18 @@
+/* ============ DESIGN TOKENS ============
+   When you choose your palette, change only these values.
+   Keep the dark block in sync, or delete it if you want light only. */
 :root {
   --bg: #ffffff;
-  --surface: #f6f6f9;
-  --text: #1c1b22;
-  --muted: #6b6b7b;
-  --border: #e2e2ea;
-  --accent: #5b3fd9;
-  --danger: #c62839;
-  --high: #c62839;
-  --medium: #b7791f;
-  --low: #2f855a;
+  --surface: #ffffff;
+  --text: #111111;
+  --muted: #777777;
+  --border: #e6e6e6;
+  --accent: #111111;
+  --accent-contrast: #ffffff;
+  --danger: #b3261e;
+
+  --radius: 8px;
+  --space: 16px;
 
   font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
@@ -18,111 +22,119 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16171d;
-    --surface: #1f2028;
-    --text: #f1f1f5;
-    --muted: #9a9aab;
-    --border: #2e303a;
-    --accent: #a78bfa;
-    --danger: #ff6b7a;
-    --high: #ff6b7a;
-    --medium: #f6ad55;
-    --low: #68d391;
+    --bg: #111111;
+    --surface: #111111;
+    --text: #f2f2f2;
+    --muted: #8c8c8c;
+    --border: #2a2a2a;
+    --accent: #f2f2f2;
+    --accent-contrast: #111111;
+    --danger: #ff8a80;
   }
 }
 
 * { box-sizing: border-box; }
-
-body { margin: 0; }
+body { margin: 0; background: var(--bg); }
 
 #root {
-  max-width: 640px;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 56px 20px 80px;
 }
 
-h1 { font-size: 1.8rem; margin: 0 0 4px; }
-h2 { font-size: 1.1rem; margin: 0 0 12px; }
+/* ============ TYPOGRAPHY ============ */
+h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 4px; }
+h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.subtitle { color: var(--muted); margin: 0 0 40px; }
 
-.subtitle { color: var(--muted); margin: 0 0 24px; }
-
-/* Form */
+/* ============ FORM ============ */
 .task-form {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 24px;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
 }
 
-.field { display: flex; flex-direction: column; margin-bottom: 12px; }
-.field label { font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+.field { display: flex; flex-direction: column; margin-bottom: 14px; }
+.field label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
 
 .field input,
 .field textarea,
 .field select {
-  font: inherit;               /* keeps text readable on phones */
+  font: inherit;               /* 16px keeps iPhones from zooming in */
   color: var(--text);
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 10px 12px;
+  transition: border-color 0.15s;
 }
 
-.field textarea { min-height: 70px; resize: vertical; }
+.field textarea { min-height: 72px; resize: vertical; }
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--text);
 }
 
-.error { color: var(--danger); font-size: 0.85rem; margin: 4px 0 0; }
+.error { color: var(--danger); font-size: 0.85rem; margin: 6px 0 0; }
 
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
 .btn-primary {
   width: 100%;
   font: inherit;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 500;
+  color: var(--accent-contrast);
   background: var(--accent);
-  border: 0;
-  border-radius: 8px;
-  padding: 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 11px;
+  margin-top: 6px;
   cursor: pointer;
+  transition: opacity 0.15s;
 }
-.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:hover { opacity: 0.85; }
+.btn-primary:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 
-/* Task list */
-.task-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+/* ============ TASK LIST ============ */
+.task-list { list-style: none; padding: 0; margin: 0; }
 
 .task-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.task-item input[type="checkbox"] { width: 20px; height: 20px; }
+.task-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+}
 
 .task-body { flex: 1; min-width: 0; }
 .task-title { overflow-wrap: anywhere; }
 .task-title.done { text-decoration: line-through; color: var(--muted); }
-.task-meta { font-size: 0.8rem; color: var(--muted); }
+.task-meta { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
 
+/* Priority without color: weight and outline carry the meaning */
 .badge {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
   text-transform: capitalize;
+  letter-spacing: 0.04em;
   padding: 2px 8px;
   border-radius: 999px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--border);
+  color: var(--muted);
 }
-.badge.high { color: var(--high); }
-.badge.medium { color: var(--medium); }
-.badge.low { color: var(--low); }
+.badge.high { color: var(--text); border-color: var(--text); font-weight: 600; }
+.badge.medium { color: var(--text); }
+.badge.low { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
