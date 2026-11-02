@@ -20,11 +20,11 @@ function TaskList() {
   return (
     <div>
       <h1>My Tasks</h1>
-      <p>Today • {tasks.length} tasks</p>
+      <p className="subtitle">Today • {tasks.length} tasks</p>
 
       <AddTaskForm onAddTask={handleAddTask} />
 
-      <ul>
+      <ul className="task-list">
         {tasks.map((task) => (
           <TaskItem key={task.id} task={task} />
         ))}

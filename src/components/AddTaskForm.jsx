@@ -54,10 +54,10 @@ function AddTaskForm({ onAddTask }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form className="task-form" onSubmit={handleSubmit} noValidate>
       <h2>Add a task</h2>
 
-      <div>
+      <div className="field">
         <label htmlFor="title">Title</label>
         <input
           id="title"
@@ -65,45 +65,45 @@ function AddTaskForm({ onAddTask }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        {errors.title && <p role="alert" style={{ color: "crimson" }}>{errors.title}</p>}
+        {errors.title && <p role="alert" className="error">{errors.title}</p>}
       </div>
 
-      <div>
+      <div className="field">
         <label htmlFor="description">Description (optional)</label>
         <textarea
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        {errors.description && <p role="alert" style={{ color: "crimson" }}>{errors.description}</p>}
+        {errors.description && <p role="alert" className="error">{errors.description}</p>}
       </div>
 
-      <div>
-        <label htmlFor="dueDate">Due date (optional)</label>
-        <input
-          id="dueDate"
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
+      <div className="row">
+        <div className="field">
+          <label htmlFor="dueDate">Due date (optional)</label>
+          <input
+            id="dueDate"
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="priority">Priority</label>
+          <select
+            id="priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            {PRIORITIES.map((p) => (
+              <option key={p.value} value={p.value}>{p.label}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="priority">Priority</label>
-        <select
-          id="priority"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-        >
-          {PRIORITIES.map((p) => (
-            <option key={p.value} value={p.value}>
-              {p.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <button type="submit">Add task</button>
+      <button type="submit" className="btn-primary">Add task</button>
     </form>
   );
 }
