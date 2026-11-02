@@ -12,6 +12,7 @@ function AddTaskForm({ onAddTask }) {
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState(DEFAULT_PRIORITY);
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   function validate() {
     const newErrors = {};
@@ -30,21 +31,23 @@ function AddTaskForm({ onAddTask }) {
     return newErrors;
   }
 
-  function handleSubmit(event) {
+    async function handleSubmit(event) {
     event.preventDefault();
 
     const newErrors = validate();
     setErrors(newErrors);
-
-    // If there is any error, stop here and do not add the task
     if (Object.keys(newErrors).length > 0) return;
 
-    onAddTask({
+    setSubmitting(true);
+    const saved = await onAddTask({
       title: title.trim(),
       description: description.trim(),
       due_date: dueDate || null,
       priority,
     });
+    setSubmitting(false);
+
+    if (!saved) return; // keep the text so you can retry
 
     setTitle("");
     setDescription("");
@@ -103,7 +106,9 @@ function AddTaskForm({ onAddTask }) {
         </div>
       </div>
 
-      <button type="submit" className="btn-primary">Add task</button>
+            <button type="submit" className="btn-primary" disabled={submitting}>
+        {submitting ? "Saving…" : "Add task"}
+      </button>
     </form>
   );
 }

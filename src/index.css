@@ -138,3 +138,47 @@ h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+/* ============ STATUS + SMALL BUTTONS ============ */
+.status { color: var(--muted); font-size: 0.9rem; }
+
+.btn-text {
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.btn-text:hover { color: var(--danger); }
+.btn-text:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+
+.btn-secondary {
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.btn-secondary:hover { border-color: var(--text); }
+.btn-primary:disabled { opacity: 0.5; cursor: default; }
+
+/* ============ FOCUS TIMER ============ */
+.focus {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.timer-phase { color: var(--muted); font-size: 0.85rem; }
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0 16px;
+}
+.timer-actions { display: flex; gap: 8px; }
+.timer-actions .btn-primary { width: auto; flex: 1; margin-top: 0; }
