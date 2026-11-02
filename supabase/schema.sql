@@ -26,3 +26,14 @@ $$ language plpgsql;
 create trigger tasks_set_updated_at
 before update on public.tasks
 for each row execute function public.set_updated_at();
+
+
+-- Focus sessions: a log of completed focus rounds
+create table public.focus_sessions (
+  id         bigint generated always as identity primary key,
+  user_id    uuid references auth.users (id) on delete cascade default auth.uid(),
+  task_id    bigint references public.tasks (id) on delete set null,
+  technique  text not null,
+  minutes    integer not null check (minutes > 0),
+  created_at timestamptz not null default now()
+);
