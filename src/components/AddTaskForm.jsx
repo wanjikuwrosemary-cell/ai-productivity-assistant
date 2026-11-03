@@ -13,6 +13,7 @@ function AddTaskForm({ onAddTask }) {
   const [priority, setPriority] = useState(DEFAULT_PRIORITY);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [remindAt, setRemindAt] = useState("");
 
   function validate() {
     const newErrors = {};
@@ -28,6 +29,10 @@ function AddTaskForm({ onAddTask }) {
       newErrors.description = `Description must be ${DESCRIPTION_MAX_LENGTH} characters or fewer.`;
     }
 
+    if (remindAt && new Date(remindAt).getTime() <= Date.now()) {
+      newErrors.remindAt = "Pick a reminder time in the future.";
+    }
+
     return newErrors;
   }
 
@@ -38,12 +43,21 @@ function AddTaskForm({ onAddTask }) {
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
+    if (
+      remindAt &&
+      "Notification" in window &&
+      Notification.permission === "default"
+    ) {
+      Notification.requestPermission();
+    }
+
     setSubmitting(true);
     const saved = await onAddTask({
       title: title.trim(),
       description: description.trim(),
       due_date: dueDate || null,
       priority,
+      remind_at: remindAt ? new Date(remindAt).toISOString() : null,
     });
     setSubmitting(false);
 
@@ -54,6 +68,7 @@ function AddTaskForm({ onAddTask }) {
     setDueDate("");
     setPriority(DEFAULT_PRIORITY);
     setErrors({});
+    setRemindAt("");
   }
 
   return (
@@ -104,6 +119,17 @@ function AddTaskForm({ onAddTask }) {
             ))}
           </select>
         </div>
+      </div>
+
+      <div className="field">
+        <label htmlFor="remindAt">Remind me (optional)</label>
+        <input
+          id="remindAt"
+          type="datetime-local"
+          value={remindAt}
+          onChange={(e) => setRemindAt(e.target.value)}
+        />
+        {errors.remindAt && <p role="alert" className="error">{errors.remindAt}</p>}
       </div>
 
             <button type="submit" className="btn-primary" disabled={submitting}>

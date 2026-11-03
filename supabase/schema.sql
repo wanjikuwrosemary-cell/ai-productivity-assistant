@@ -37,3 +37,8 @@ create table public.focus_sessions (
   minutes    integer not null check (minutes > 0),
   created_at timestamptz not null default now()
 );
+
+--Reminders
+alter table public.tasks
+  add column remind_at timestamptz,
+  add column reminder_sent boolean not null default false;

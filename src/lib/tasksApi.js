@@ -9,10 +9,10 @@ export async function fetchTasks() {
   return data;
 }
 
-export async function createTask({ title, description, due_date, priority }) {
+export async function createTask({ title, description, due_date, priority, remind_at }) {
   const { data, error } = await supabase
     .from("tasks")
-    .insert({ title, description, due_date, priority })
+    .insert({ title, description, due_date, priority, remind_at })
     .select()
     .single();
   if (error) throw error;
@@ -33,4 +33,15 @@ export async function setTaskCompleted(id, completed) {
 export async function deleteTask(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);
   if (error) throw error;
+}
+
+export async function markReminderSent(id) {
+  const { data, error } = await supabase
+    .from("tasks")
+    .update({ reminder_sent: true })
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
 }
