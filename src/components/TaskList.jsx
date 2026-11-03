@@ -2,6 +2,7 @@ import { useEffect,useRef, useState } from "react";
 import TaskItem from "./TaskItem";
 import AddTaskForm from "./AddTaskForm";
 import FocusTimer from "./FocusTimer";
+import { supabase } from "../lib/supabaseClient";
 
 import {
   fetchTasks,
@@ -11,7 +12,7 @@ import {
   markReminderSent
 } from "../lib/tasksApi";
 
-function TaskList() {
+function TaskList({ user }) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -102,6 +103,16 @@ function TaskList() {
 
   return (
     <div>
+      <div className="topbar">
+        <span className="task-meta">{user.email}</span>
+        <button
+          type="button"
+          className="btn-text"
+          onClick={() => supabase.auth.signOut()}
+        >
+          Sign out
+        </button>
+      </div>
       <h1>My Tasks</h1>
       <p className="subtitle">
         {openTasks.length} open · {tasks.length} total

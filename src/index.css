@@ -197,3 +197,11 @@ h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform
   gap: 12px;
   padding: 4px 0;
 }
+
+/* ============ TOP BAR ============ */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
